@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary_light">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".15"
+        android:src="@drawable/splash_background"/>
+
+    <!--    Size pusher trick...-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottomSplashHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/prompt"
+        android:text="@string/select_a_group"
+        android:textSize="@dimen/bottom_splash_header_size"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ccUsernameInputLayout"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ccUsernameInputLayout"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/username"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/ccPasswordInputLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomSplashHeader">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ccUsername"
+            style="@style/TextInputEditTextStyle"
+            android:drawableEnd="@drawable/ic_user"
+            android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ccPasswordInputLayout"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/password"
+        android:nextFocusForward="@+id/loginButton"
+        android:nextFocusDown="@+id/loginButton"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ccUsernameInputLayout"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ccPassword"
+            style="@style/TextInputEditTextStyle"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/loginButton"
+        android:focusable="true"
+        style="@style/ActionButton"
+        android:text="@string/login"
+        android:layout_marginTop="@dimen/bottom_actions_login_margin_top"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ccPasswordInputLayout" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/loginRelatedViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="ccUsernameInputLayout, ccPasswordInputLayout, loginButton" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groups"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomSplashHeader"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
