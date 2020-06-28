@@ -88,4 +88,5 @@
     <string name="levels_format">%s / %s LEVEL UP</string>
     <string name="select_a_group">Seleccione un grupo</string>
     <string name="error_downloading_groups">Error al descargar grupos</string>
+    <string name="group_value">Grupo: %s</string>
 </resources>

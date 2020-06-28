@@ -25,7 +25,7 @@
         android:fontFamily="@font/prompt"
         android:gravity="center"
         android:text="@string/progress"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="42dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.doepiccoding.cubiccodingtv.R
 import com.doepiccoding.cubiccodingtv.front.home.Home
 import com.doepiccoding.cubiccodingtv.front.splash.groups_recyclerview.GroupsAdapter
+import com.doepiccoding.cubiccodingtv.front.utils.showFancyToast
 import com.doepiccoding.cubiccodingtv.model.dtos.GroupsResponsePayload
 import com.doepiccoding.cubiccodingtv.persistence.preferences.UserPersistedData
 import kotlinx.android.synthetic.main.splash_activity.*
@@ -37,7 +38,7 @@ class Splash: AppCompatActivity() {
             if (loginSuccess) {
                 startGroupSelectionLogic()
             } else {
-                Toast.makeText(this, "Error al hacer login", Toast.LENGTH_SHORT).show()
+                showFancyToast(this, "Error al hacer login")
             }
         })
 
@@ -51,7 +52,7 @@ class Splash: AppCompatActivity() {
     }
 
     private fun nullGroupsResponse() {
-        Toast.makeText(this, getString(R.string.error_downloading_groups), Toast.LENGTH_LONG).show()
+        showFancyToast(this, getString(R.string.error_downloading_groups))
     }
 
     private fun setupViews() {
@@ -60,7 +61,7 @@ class Splash: AppCompatActivity() {
         } else {
             prepareForLogin()
             loginButton.setOnClickListener {
-                Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show()
+                showFancyToast(this, "Logging In")
                 model?.login(ccUsername.text.toString(), ccPassword.text.toString())
             }
         }
@@ -82,7 +83,7 @@ class Splash: AppCompatActivity() {
         loginRelatedViews.visibility = View.GONE//Make sure the login related views are out of the way...
         bottomSplashHeader.text = getString(R.string.select_a_group)
         model?.getGroups()
-        Toast.makeText(this, "Go fetch the groups...", Toast.LENGTH_SHORT).show()
+        showFancyToast(this, "Go fetch the groups...")
     }
 
     private fun populateGroups(groupsData: List<GroupsResponsePayload>) {
@@ -92,9 +93,8 @@ class Splash: AppCompatActivity() {
     }
 
     private fun groupClickCallback(selectedGroup: GroupsResponsePayload) {
-        Toast.makeText(this, "Apuntando al aula: ${selectedGroup.classroomName}", Toast.LENGTH_LONG).show()
+        showFancyToast(this, "Apuntando al aula: ${selectedGroup.classroomName}")
         UserPersistedData.classroomName = selectedGroup.classroomName ?: ""
         startActivity(Intent(this, Home::class.java))
-        finish()
     }
 }

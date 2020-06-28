@@ -7,13 +7,14 @@ android {
 
     defaultConfig {
         applicationId "com.doepiccoding.cubiccodingtv"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -58,5 +59,8 @@ dependencies {
     //Retrofit...
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
 
 }

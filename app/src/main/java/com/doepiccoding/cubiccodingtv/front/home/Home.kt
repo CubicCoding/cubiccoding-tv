@@ -1,12 +1,14 @@
 package com.doepiccoding.cubiccodingtv.front.home
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.doepiccoding.cubiccodingtv.R
 import com.doepiccoding.cubiccodingtv.front.home.score.ScoreboardFragment
 import com.doepiccoding.cubiccodingtv.front.utils.setFocusFrameListeners
+import com.doepiccoding.cubiccodingtv.persistence.preferences.UserPersistedData
 import kotlinx.android.synthetic.main.home_activity.*
 import timber.log.Timber
 
@@ -31,6 +33,8 @@ class Home: AppCompatActivity() {
             navigateToFragment(ScoreboardFragment.newInstance(), ScoreboardFragment.TAG)
             Timber.e("Track, Scoreboard card clicked")
         }
+
+        groupNameIndicator.text = getString(R.string.group_value, UserPersistedData.classroomName)
     }
 
     private fun navigateToFragment(fragment: Fragment, tag: String) {
@@ -44,5 +48,10 @@ class Home: AppCompatActivity() {
         } catch (e: Exception) {
             Timber.e("Error when navigating to fragment")
         }
+    }
+
+    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
+        return super.dispatchKeyEvent(event)
+        //TODO: Fire pubsub with key event for those screens that might need it...
     }
 }

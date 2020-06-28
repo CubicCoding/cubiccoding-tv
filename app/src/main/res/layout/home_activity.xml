@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
     android:background="@color/white_smoke">
 
     <ImageView
         android:id="@+id/splashBackgroundImage"
         android:focusable="false"
-        android:layout_width="228dp"
-        android:layout_height="100dp"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
         android:scaleType="centerInside"
         android:src="@drawable/splash_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,6 +20,7 @@
         android:focusable="true"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="20dp"
         android:nextFocusRight="@+id/progressCard"
         android:nextFocusDown="@+id/slideShowCard"
         app:cardCornerRadius="5dp"
@@ -62,6 +62,7 @@
         android:focusable="true"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="20dp"
         android:nextFocusRight="@+id/lightCard"
         android:nextFocusDown="@+id/slideShowCard"
         app:cardCornerRadius="5dp"
@@ -102,6 +103,7 @@
         android:focusable="true"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginTop="20dp"
         android:nextFocusRight="@+id/slideShowCard"
         android:nextFocusDown="@+id/slideShowCard"
         app:cardCornerRadius="5dp"
@@ -183,6 +185,18 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="scoreboardCard, progressCard, lightCard, slideShowCard"
         android:id="@+id/cardsGroup"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/groupNameIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:fontFamily="@font/prompt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
