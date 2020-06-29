@@ -55,7 +55,7 @@ class ScoreboardFragment : Fragment() {
 
     private fun setupViews() {
         scoreboardRecyclerView.layoutManager =
-            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         scoreboardRecyclerView.adapter = adapter
 
         scoreboardRecyclerView?.setOnKeyListener { v, keyCode, event ->
