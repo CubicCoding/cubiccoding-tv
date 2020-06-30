@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary_light">
+    android:background="@color/white_smoke">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/scoreboardHeader"
@@ -42,8 +42,6 @@
         android:id="@+id/scoreboardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginRight="150dp"
-        android:layout_marginLeft="150dp"
         android:background="@color/white_smoke"
         app:layout_constraintTop_toBottomOf="@id/scoreboardHeader"
         app:layout_constraintBottom_toBottomOf="parent" />

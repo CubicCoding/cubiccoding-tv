@@ -1,6 +1,7 @@
 package com.doepiccoding.cubiccodingtv.model.networking.calls
 
 import androidx.annotation.WorkerThread
+import com.doepiccoding.cubiccodingtv.model.dtos.ExpirationPayload
 import com.doepiccoding.cubiccodingtv.model.dtos.GroupsResponsePayload
 import com.doepiccoding.cubiccodingtv.model.dtos.LoginRequestPayload
 import com.doepiccoding.cubiccodingtv.model.networking.CubicCodingRequestException
@@ -19,23 +20,41 @@ object GroupsRequest {
             response.isSuccessful -> {
                 val body = response.body()
                 if (body != null) {
-                    UserPersistedData.isLogged = true
-                    //Get cubiccoding's api token
-                    response.headers()[AUTHORIZATON_HEADER]?.apply {
-                        UserPersistedData.ccToken = this
-                        Timber.d("Saved user token: $this")
-                    }
                     return body
                 } else {
                     throw CubicCodingRequestException(
-                        "Logging In body is null",
+                        "Get All groups body is null",
                         RequestErrorType.NULL_BODY,
                         response.code()
                     )
                 }
             }
             else -> throw CubicCodingRequestException(
-                "Logging In request failed",
+                "Get All groups request failed",
+                RequestErrorType.UNSUCCESS,
+                response.code()
+            )
+        }
+    }
+
+    @WorkerThread
+    fun getExpirationByGroup(groupName: String): List<ExpirationPayload> {
+        val response = RequestsManager.cubicCodingManagerApi.getExpirationsByGroupName(groupName).execute()
+        when {
+            response.isSuccessful -> {
+                val body = response.body()
+                if (body != null) {
+                    return body
+                } else {
+                    throw CubicCodingRequestException(
+                        "Get Expirations by group name body is null",
+                        RequestErrorType.NULL_BODY,
+                        response.code()
+                    )
+                }
+            }
+            else -> throw CubicCodingRequestException(
+                "Get Expirations by group name request failed",
                 RequestErrorType.UNSUCCESS,
                 response.code()
             )

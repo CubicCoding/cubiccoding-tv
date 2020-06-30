@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="400dp"
+    android:layout_width="350dp"
     android:layout_height="match_parent"
-    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="15dp"
     android:layout_margin="7dp"
     android:background="?attr/selectableItemBackgroundBorderless"
     app:cardCornerRadius="5dp"
@@ -39,9 +39,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/displayName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
             android:ellipsize="end"
@@ -106,7 +106,7 @@
             android:id="@+id/classroomValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:ellipsize="end"
             android:fontFamily="@font/prompt"
             android:gravity="left"
@@ -130,7 +130,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/avatar"/>
 
         <View
-            android:id="@+id/badge"
+            android:id="@+id/availability"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/gold_badge_circle"

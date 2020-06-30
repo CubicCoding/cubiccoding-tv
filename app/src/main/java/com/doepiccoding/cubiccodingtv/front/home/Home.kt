@@ -21,11 +21,19 @@ class Home: AppCompatActivity() {
         setContentView(R.layout.home_activity)
 
         setupViews()
+
+        //TODO: Remove test code after implementing video player fragment...
+//        videoView.setVideoPath("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4")
+//        videoView.setOnErrorListener{ mp, what, extra ->
+//            Timber.e("Track, mp: $mp, what: $what, extra: $extra")
+//            true
+//        }
+//        videoView.start()
     }
 
     private fun setupViews() {
 
-        setFocusFrameListeners(listOf(scoreboardCard, progressCard, lightCard, slideShowCard))
+        setFocusFrameListeners(listOf(scoreboardCard, progressCard, slideShowCard))
 
         scoreboardCard.requestFocus()
         scoreboardCard.setOnClickListener {

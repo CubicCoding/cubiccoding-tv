@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.doepiccoding.cubiccodingtv.R
-import java.lang.IllegalArgumentException
 import com.doepiccoding.cubiccodingtv.front.home.score.recyclerview.ScoreboardDataItem.ScoreboardItemType
-import com.doepiccoding.cubiccodingtv.model.dtos.ScoreboardItemPayload
+import com.doepiccoding.cubiccodingtv.model.dtos.ExpirationPayload
 
 class ScoreboardAdapter: RecyclerView.Adapter<ScoreboardViewHolder>() {
 
@@ -37,20 +36,5 @@ class ScoreboardAdapter: RecyclerView.Adapter<ScoreboardViewHolder>() {
         this.scoreboard.clear()
         this.scoreboard.addAll(scoreboard)
         notifyDataSetChanged()
-    }
-
-    fun updateUserScore(email: String, score: Int, maxScore: Int) {
-        if (email.isNotEmpty() && score > 0) {//Only update if there's something to update...
-            for(index in scoreboard.indices) {
-                val item = scoreboard[index]
-                val data: Any = item.getData()
-                if (data is ScoreboardItemPayload && data.email == email) {
-                    data.currentScore = (data.currentScore ?: 0F) + score
-                    data.totalOfferedScore = (data.totalOfferedScore ?: 0) + maxScore
-                    notifyItemChanged(index)
-                    break
-                }
-            }
-        }
     }
 }
