@@ -1,5 +1,6 @@
 package com.doepiccoding.cubiccodingtv.model.networking.apis
 
+import com.doepiccoding.cubiccodingtv.model.dtos.ExpirationPayload
 import com.doepiccoding.cubiccodingtv.model.dtos.GroupsResponsePayload
 import com.doepiccoding.cubiccodingtv.model.dtos.LoginRequestPayload
 import com.doepiccoding.cubiccodingtv.model.dtos.ScoreboardResponsePayload
@@ -19,4 +20,6 @@ interface CubicCodingManagerApi {
     @GET("/api/scoreboard")
     fun getScoreboard(@Query("email") email: String, @Query("classroomName") classroomName: String, @HeaderMap headers: Map<String, String> = RequestsManager.getAuthorizationHeader()): Call<ScoreboardResponsePayload>
 
+    @GET("/api/v1/admin/student-payments-expiration/group-name/{groupName}")
+    fun getExpirationsByGroupName(@Path("groupName") groupName: String, @HeaderMap headers: Map<String, String> = RequestsManager.getAuthorizationHeader()): Call<List<ExpirationPayload>>
 }

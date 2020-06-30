@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import java.text.FieldPosition
 
 class BouncingScroll(context: Context?, totalItems: Int, layoutManager: LinearLayoutManager) {
 

@@ -70,7 +70,7 @@
         app:cardUseCompatPadding="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/scoreboardCard"
-        app:layout_constraintRight_toLeftOf="@+id/lightCard">
+        app:layout_constraintRight_toRightOf="parent">
 
 <!--        Must be the first-->
         <View
@@ -94,47 +94,6 @@
             android:gravity="center"
             android:textStyle="bold"
             android:text="@string/progress"
-            android:textSize="22dp"
-            android:fontFamily="@font/prompt"/>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/lightCard"
-        android:focusable="true"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:nextFocusRight="@+id/slideShowCard"
-        android:nextFocusDown="@+id/slideShowCard"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/progressCard"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <!--        Must be the first-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/focus_frame"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:padding="@dimen/splash_icon_padding"
-            android:src="@drawable/light"
-            android:tint="@color/colorPrimary_light"
-            android:layout_gravity="top|center_horizontal"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="@string/light"
             android:textSize="22dp"
             android:fontFamily="@font/prompt"/>
     </androidx.cardview.widget.CardView>
@@ -183,7 +142,7 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="scoreboardCard, progressCard, lightCard, slideShowCard"
+        app:constraint_referenced_ids="scoreboardCard, progressCard, slideShowCard"
         android:id="@+id/cardsGroup"/>
 
     <androidx.appcompat.widget.AppCompatTextView

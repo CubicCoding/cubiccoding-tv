@@ -2,6 +2,7 @@ package com.doepiccoding.cubiccodingtv.model.networking.calls
 
 import androidx.annotation.WorkerThread
 import com.doepiccoding.cubiccodingtv.front.home.score.recyclerview.ScoreboardDataItem
+import com.doepiccoding.cubiccodingtv.model.dtos.ScoreboardAndExpirationDto
 import com.doepiccoding.cubiccodingtv.model.networking.CubicCodingRequestException
 import com.doepiccoding.cubiccodingtv.model.networking.RequestErrorType
 import com.doepiccoding.cubiccodingtv.model.networking.RequestsManager
@@ -21,7 +22,7 @@ object ScoreboardRequest {
                         1 -> ScoreboardDataItem.ScoreboardItemType.FIRST_PLACE
                         else -> ScoreboardDataItem.ScoreboardItemType.NON_FIRST_PLACE
                     }
-                    ScoreboardDataItem(type, scoreboardItemPayload)
+                    ScoreboardDataItem(type, ScoreboardAndExpirationDto(scoreboardItemPayload, null))
                 }
 
                 val tournamentName = response.body()?.tournamentInfo?.tournamentName ?: ""

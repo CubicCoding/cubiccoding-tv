@@ -1,7 +1,6 @@
 package com.doepiccoding.cubiccodingtv.front.home.score
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,9 @@ import com.doepiccoding.cubiccodingtv.front.home.score.components.BouncingScroll
 import com.doepiccoding.cubiccodingtv.front.home.score.recyclerview.ScoreboardAdapter
 import com.doepiccoding.cubiccodingtv.front.home.score.recyclerview.ScoreboardDataItem
 import com.doepiccoding.cubiccodingtv.front.utils.isFragmentAlive
+import com.doepiccoding.cubiccodingtv.model.dtos.ExpirationPayload
+import com.doepiccoding.cubiccodingtv.model.dtos.ScoreboardAndExpirationDto
+import com.doepiccoding.cubiccodingtv.model.networking.calls.GroupsRequest
 import com.doepiccoding.cubiccodingtv.model.networking.calls.ScoreboardRequest
 import com.doepiccoding.cubiccodingtv.persistence.preferences.UserPersistedData
 import kotlinx.android.synthetic.main.scoreboard_fragment.*
@@ -50,12 +52,12 @@ class ScoreboardFragment : Fragment() {
 
         setupViews()
 
-        fetchScoreboard()
+        fetchScoreboardAndExpiration()
     }
 
     private fun setupViews() {
         scoreboardRecyclerView.layoutManager =
-            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         scoreboardRecyclerView.adapter = adapter
 
         scoreboardRecyclerView?.setOnKeyListener { v, keyCode, event ->
@@ -64,10 +66,15 @@ class ScoreboardFragment : Fragment() {
         }
     }
 
-    private fun fetchScoreboard() {
+    private fun fetchScoreboardAndExpiration() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val scoreboardDataResponse = try {
-                ScoreboardRequest.getScore(UserPersistedData.classroomName)
+            val scoreboardAndExpirationDataResponse = try {
+
+                val groupName = UserPersistedData.classroomName
+                val scores = ScoreboardRequest.getScore(groupName)
+                val expirations = GroupsRequest.getExpirationByGroup(groupName)
+                linkExpirationDataWithScoreboardData(expirations, scores.score)
+                scores
             } catch (e: Exception) {
                 Timber.e(e, "Error while getting the scoreboard...")
                 null
@@ -75,12 +82,10 @@ class ScoreboardFragment : Fragment() {
 
             lifecycleScope.launch(Dispatchers.Main) {
                 if (isFragmentAlive(this@ScoreboardFragment)) {
-                    if (scoreboardDataResponse != null) {
-                        handleScoresListChanged(
-                            scoreboardDataResponse.tournamentName,
-                            scoreboardDataResponse.score
-                        )
+                    if (scoreboardAndExpirationDataResponse != null) {
+                        handleScoresListChanged(scoreboardAndExpirationDataResponse.tournamentName, scoreboardAndExpirationDataResponse.score)
                     } else {
+                        progressBar.visibility = View.GONE
                         emptyScoreText.text = getString(R.string.error_loading_scores)
                         emptyScoreText.visibility = View.VISIBLE
                     }
@@ -89,10 +94,20 @@ class ScoreboardFragment : Fragment() {
         }
     }
 
-    private fun handleScoresListChanged(
-        tournnament: String,
-        scoreboardItems: List<ScoreboardDataItem>
-    ) {
+    private fun linkExpirationDataWithScoreboardData(expirations: List<ExpirationPayload>, scores: List<ScoreboardDataItem>) {
+        //Link all of the student expiration status with their scoreboard data...
+        for (expiration in expirations) {
+            for (score in scores) {
+                val scoreAndExpiration: ScoreboardAndExpirationDto = score.getData()
+                if (scoreAndExpiration.scoreboardItemPayload.email == expiration.student.email) {//If we found the student in the scoreboard, link the expiration and scoreboard and break...
+                    scoreAndExpiration.expirationPayload = expiration
+                    break
+                }
+            }
+        }
+    }
+
+    private fun handleScoresListChanged(tournnament: String, scoreboardItems: List<ScoreboardDataItem>) {
         progressBar.visibility = View.GONE
         if (scoreboardItems.isNotEmpty()) {
             adapter.populateScoreboard(scoreboardItems)
