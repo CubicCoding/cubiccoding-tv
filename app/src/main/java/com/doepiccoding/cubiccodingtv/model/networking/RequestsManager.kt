@@ -1,8 +1,10 @@
 package com.doepiccoding.cubiccodingtv.model.networking
 
+import com.doepiccoding.cubiccodingtv.model.networking.apis.CubicCodingMXApi
 import com.doepiccoding.cubiccodingtv.model.networking.apis.CubicCodingManagerApi
 import com.doepiccoding.cubiccodingtv.model.utils.Constants
 import com.doepiccoding.cubiccodingtv.model.utils.Constants.CUBICCODING_MANAGER_URL
+import com.doepiccoding.cubiccodingtv.model.utils.Constants.CUBICCODING_MX_URL
 import com.doepiccoding.cubiccodingtv.model.utils.Constants.HTTP_WAIT_TIME_IN_SECS
 import com.doepiccoding.cubiccodingtv.persistence.preferences.UserPersistedData
 import okhttp3.OkHttpClient
@@ -13,6 +15,7 @@ import java.util.concurrent.TimeUnit
 
 object RequestsManager {
 
+    lateinit var cubicCodingMXApi: CubicCodingMXApi
     lateinit var cubicCodingManagerApi: CubicCodingManagerApi
 
     init {
@@ -29,8 +32,17 @@ object RequestsManager {
         }
 
         setupManagerApi(httpClient)
+        setupMXApi(httpClient)
     }
 
+    private fun setupMXApi(httpClient: OkHttpClient) {
+        cubicCodingMXApi = with (Retrofit.Builder()) {
+            baseUrl(CUBICCODING_MX_URL)
+            addConverterFactory(GsonConverterFactory.create())
+            client(httpClient)
+            build()
+        }.create(CubicCodingMXApi::class.java)
+    }
 
     private fun setupManagerApi(httpClient: OkHttpClient) {
         cubicCodingManagerApi = with (Retrofit.Builder()) {

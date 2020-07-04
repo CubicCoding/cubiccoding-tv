@@ -1,9 +1,6 @@
 package com.doepiccoding.cubiccodingtv.model.networking.apis
 
-import com.doepiccoding.cubiccodingtv.model.dtos.ExpirationPayload
-import com.doepiccoding.cubiccodingtv.model.dtos.GroupsResponsePayload
-import com.doepiccoding.cubiccodingtv.model.dtos.LoginRequestPayload
-import com.doepiccoding.cubiccodingtv.model.dtos.ScoreboardResponsePayload
+import com.doepiccoding.cubiccodingtv.model.dtos.*
 import com.doepiccoding.cubiccodingtv.model.networking.RequestsManager
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -22,4 +19,11 @@ interface CubicCodingManagerApi {
 
     @GET("/api/v1/admin/student-payments-expiration/group-name/{groupName}")
     fun getExpirationsByGroupName(@Path("groupName") groupName: String, @HeaderMap headers: Map<String, String> = RequestsManager.getAuthorizationHeader()): Call<List<ExpirationPayload>>
+
+    @GET("/principles_knowledge_timeline.json")
+    fun getPrinciplesTimeline(): Call<List<TimelineStepPayload>>
+
+    @GET("/api/classrooms/{classroomName}/timeline-progress")
+    fun getClassroomTimelineProgress(@Path("classroomName") classroomName: String, @HeaderMap headers: Map<String, String> = RequestsManager.getAuthorizationHeader()): Call<TimelineProgressPayload>
+
 }

@@ -23,6 +23,9 @@
         <activity android:name=".front.home.Home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
+        <activity android:name=".front.slideshow.SlideshowActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
     </application>
 
 </manifest>

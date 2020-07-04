@@ -12,11 +12,16 @@ import com.doepiccoding.cubiccodingtv.R
 import com.doepiccoding.cubiccodingtv.front.home.score.components.BouncingScroll
 import com.doepiccoding.cubiccodingtv.front.home.score.recyclerview.ScoreboardAdapter
 import com.doepiccoding.cubiccodingtv.front.home.score.recyclerview.ScoreboardDataItem
+import com.doepiccoding.cubiccodingtv.front.slideshow.SlideshowActivity.Companion.IS_SLIDESHOW
+import com.doepiccoding.cubiccodingtv.front.slideshow.SlideshowActivity.Companion.SLIDE_TIME_UP
+import com.doepiccoding.cubiccodingtv.front.slideshow.component.SlideshowTimer
 import com.doepiccoding.cubiccodingtv.front.utils.isFragmentAlive
 import com.doepiccoding.cubiccodingtv.model.dtos.ExpirationPayload
 import com.doepiccoding.cubiccodingtv.model.dtos.ScoreboardAndExpirationDto
 import com.doepiccoding.cubiccodingtv.model.networking.calls.GroupsRequest
 import com.doepiccoding.cubiccodingtv.model.networking.calls.ScoreboardRequest
+import com.doepiccoding.cubiccodingtv.model.pubsub.Pubsub
+import com.doepiccoding.cubiccodingtv.model.pubsub.PubsubEvents
 import com.doepiccoding.cubiccodingtv.persistence.preferences.UserPersistedData
 import kotlinx.android.synthetic.main.scoreboard_fragment.*
 import kotlinx.coroutines.Dispatchers
@@ -28,9 +33,11 @@ class ScoreboardFragment : Fragment() {
 
     companion object {
         const val TAG = "ScoreboardFragment"
-        fun newInstance(): ScoreboardFragment {
+        fun newInstance(isSlideshow: Boolean = false, slideTimeUp: Long = 0L): ScoreboardFragment {
             val fragment = ScoreboardFragment()
             val args = Bundle()
+            args.putBoolean(IS_SLIDESHOW, isSlideshow)
+            args.putLong(SLIDE_TIME_UP, slideTimeUp)
             fragment.arguments = args
             return fragment
         }
@@ -38,6 +45,7 @@ class ScoreboardFragment : Fragment() {
 
     private val adapter by lazy { ScoreboardAdapter() }
     private var bouncingScroll: BouncingScroll? = null
+    private var slideshowTimer: SlideshowTimer? = null//Only if required will be initialized...
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +61,15 @@ class ScoreboardFragment : Fragment() {
         setupViews()
 
         fetchScoreboardAndExpiration()
+
+        view?.keepScreenOn = true
+        setupSlideshowIfNecessary()
+    }
+
+    private fun setupSlideshowIfNecessary() {
+        if (arguments?.getBoolean(IS_SLIDESHOW) == true) {
+            slideshowTimer = SlideshowTimer(this).apply { startTimeUp(arguments?.getLong(SLIDE_TIME_UP) ?: 0L) }
+        }
     }
 
     private fun setupViews() {
@@ -127,6 +144,8 @@ class ScoreboardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         bouncingScroll?.release()
+        if (slideshowTimer?.isRunning() == true) activity?.finish()//If the content was interrupted close all...
+        slideshowTimer?.release() ?: Pubsub.INSTANCE.publish(Pubsub.PubsubData(PubsubEvents.CLOSED_TV_CONTENT, null))
     }
 
     private fun startBouncingLogic(totalItems: Int, layoutManager: LinearLayoutManager) {

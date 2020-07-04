@@ -1,34 +1,37 @@
 package com.doepiccoding.cubiccodingtv.front.home
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.doepiccoding.cubiccodingtv.R
 import com.doepiccoding.cubiccodingtv.front.home.score.ScoreboardFragment
+import com.doepiccoding.cubiccodingtv.front.home.timeline.TimelineFragment
+import com.doepiccoding.cubiccodingtv.front.slideshow.SlideshowActivity
+import com.doepiccoding.cubiccodingtv.front.utils.isActivityAlive
 import com.doepiccoding.cubiccodingtv.front.utils.setFocusFrameListeners
+import com.doepiccoding.cubiccodingtv.model.pubsub.Pubsub
+import com.doepiccoding.cubiccodingtv.model.pubsub.PubsubEvents
 import com.doepiccoding.cubiccodingtv.persistence.preferences.UserPersistedData
 import kotlinx.android.synthetic.main.home_activity.*
 import timber.log.Timber
 
-class Home: AppCompatActivity() {
+class Home: AppCompatActivity(), Pubsub.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Timber.e("Track, Created!")
+        Pubsub.INSTANCE.addListener(this, PubsubEvents.CLOSED_TV_CONTENT)
         setContentView(R.layout.home_activity)
 
         setupViews()
+    }
 
-        //TODO: Remove test code after implementing video player fragment...
-//        videoView.setVideoPath("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4")
-//        videoView.setOnErrorListener{ mp, what, extra ->
-//            Timber.e("Track, mp: $mp, what: $what, extra: $extra")
-//            true
-//        }
-//        videoView.start()
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Pubsub.INSTANCE.removeListener(PubsubEvents.CLOSED_TV_CONTENT, this)
     }
 
     private fun setupViews() {
@@ -36,10 +39,20 @@ class Home: AppCompatActivity() {
         setFocusFrameListeners(listOf(scoreboardCard, progressCard, slideShowCard))
 
         scoreboardCard.requestFocus()
+
         scoreboardCard.setOnClickListener {
             cardsGroup.visibility = View.GONE
             navigateToFragment(ScoreboardFragment.newInstance(), ScoreboardFragment.TAG)
-            Timber.e("Track, Scoreboard card clicked")
+        }
+
+        progressCard.setOnClickListener {
+            cardsGroup.visibility = View.GONE
+            navigateToFragment(TimelineFragment.newInstance(), TimelineFragment.TAG)
+        }
+
+        slideShowCard.setOnClickListener {
+            cardsGroup.visibility = View.GONE
+            startActivity(Intent(this, SlideshowActivity::class.java))
         }
 
         groupNameIndicator.text = getString(R.string.group_value, UserPersistedData.classroomName)
@@ -58,8 +71,15 @@ class Home: AppCompatActivity() {
         }
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
-        return super.dispatchKeyEvent(event)
-        //TODO: Fire pubsub with key event for those screens that might need it...
+    override fun onEventReceived(data: Pubsub.PubsubData?) {
+        when(data?.eventType) {
+            PubsubEvents.CLOSED_TV_CONTENT -> {
+                runOnUiThread {
+                    if (isActivityAlive(this@Home)) {
+                        cardsGroup.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 }

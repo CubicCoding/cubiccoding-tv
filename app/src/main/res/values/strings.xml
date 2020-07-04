@@ -89,4 +89,6 @@
     <string name="select_a_group">Seleccione un grupo</string>
     <string name="error_downloading_groups">Error al descargar grupos</string>
     <string name="group_value">Grupo: %s</string>
+    <string name="no_media_content">No hay contenido media...</string>
+    <string name="topics_for_today">Temas para hoy</string>
 </resources>

@@ -39,6 +39,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
     //Adds components like Fab, BottomSheets, etc(replacement for support library)...
     implementation "com.google.android.material:material:1.1.0"
 
