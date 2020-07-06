@@ -12,15 +12,15 @@ class TimelineViewModel: ViewModel() {
 
     private val timeline: MutableLiveData<TimelineRepository.TimelineInfo> by lazy {
         MutableLiveData<TimelineRepository.TimelineInfo>().also {
-            loadTimeline(UserPersistedData.classroomName, true)
+            loadTimeline(UserPersistedData.classroomName, UserPersistedData.timelineResource)
         }
     }
 
     fun getTimeline(): LiveData<TimelineRepository.TimelineInfo>  = timeline
 
-    fun loadTimeline(classroomName: String, forceNetworkCall: Boolean = false) {
+    private fun loadTimeline(classroomName: String, timelineResource: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val timelineInfo = TimelineRepository.getTimelineInfo(classroomName, forceNetworkCall)
+            val timelineInfo = TimelineRepository.getTimelineInfo(classroomName, timelineResource)
             timeline.postValue(timelineInfo)
         }
     }

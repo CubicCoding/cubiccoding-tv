@@ -11,8 +11,8 @@ import com.doepiccoding.cubiccodingtv.model.networking.RequestsManager
 object TimelineRequest {
 
     @WorkerThread
-    fun getPrinciplesTimeline(): List<TimelineStepPayload> {
-        val response = RequestsManager.cubicCodingManagerApi.getPrinciplesTimeline().execute()
+    fun getStaticResource(timelineResource: String): List<TimelineStepPayload> {
+        val response = RequestsManager.cubicCodingManagerApi.getStaticResource(timelineResource).execute()
         return when {
             response.isSuccessful -> {
                 response.body() ?: throw CubicCodingRequestException(

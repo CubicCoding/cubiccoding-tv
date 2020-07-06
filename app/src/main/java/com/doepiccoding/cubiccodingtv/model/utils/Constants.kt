@@ -8,7 +8,7 @@ object Constants {
     const val CUBICCODING_MX_URL = "https://www.cubiccoding.mx/"
     const val CUBICCODING_MX_VIDEO_RESOURCES_URL = "https://www.cubiccoding.mx/resources/videos/"
 //    val CUBICCODING_MANAGER_URL = "https://cubiccoding-api.herokuapp.com/"
-    const val CUBICCODING_MANAGER_URL = "http://192.168.0.13:8080/"
+    const val CUBICCODING_MANAGER_URL = "http://192.168.0.18:8080/"
     const val HTTP_WAIT_TIME_IN_SECS = 30L
     const val HTTP_RESOURCE_NOT_FOUND = 404
     const val HTTP_RESOURCE_GONE = 410

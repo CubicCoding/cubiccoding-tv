@@ -9,18 +9,18 @@ object TimelineRepository {
     
     @WorkerThread
     @Synchronized
-    fun getTimelineInfo(classroomName: String, forceNetworkCall: Boolean): TimelineInfo? {
+    fun getTimelineInfo(classroomName: String, timelineResource: String): TimelineInfo? {
         Timber.d("Track, get timeline info")
         return try {
-            processTimelineInfoFromNetwork(classroomName)
+            processTimelineInfoFromNetwork(classroomName, timelineResource)
         } catch (e: Exception) {
             Timber.e(e, "Error while getting timeline in repository")
             null
         }
     }
 
-    private fun processTimelineInfoFromNetwork(classroomName: String): TimelineInfo {
-        val steps = TimelineRequest.getPrinciplesTimeline()
+    private fun processTimelineInfoFromNetwork(classroomName: String, timelineResource: String): TimelineInfo {
+        val steps = TimelineRequest.getStaticResource(timelineResource)
         val classroomProgress = TimelineRequest.getClassroomTimelineProgress(classroomName)
         val timelineProgress = classroomProgress.timelineProgress
         return TimelineInfo(steps, timelineProgress)

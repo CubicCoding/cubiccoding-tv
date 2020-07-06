@@ -20,8 +20,8 @@ interface CubicCodingManagerApi {
     @GET("/api/v1/admin/student-payments-expiration/group-name/{groupName}")
     fun getExpirationsByGroupName(@Path("groupName") groupName: String, @HeaderMap headers: Map<String, String> = RequestsManager.getAuthorizationHeader()): Call<List<ExpirationPayload>>
 
-    @GET("/principles_knowledge_timeline.json")
-    fun getPrinciplesTimeline(): Call<List<TimelineStepPayload>>
+    @GET("/{resourceName}")
+    fun getStaticResource(@Path("resourceName") resourceName: String): Call<List<TimelineStepPayload>>
 
     @GET("/api/classrooms/{classroomName}/timeline-progress")
     fun getClassroomTimelineProgress(@Path("classroomName") classroomName: String, @HeaderMap headers: Map<String, String> = RequestsManager.getAuthorizationHeader()): Call<TimelineProgressPayload>

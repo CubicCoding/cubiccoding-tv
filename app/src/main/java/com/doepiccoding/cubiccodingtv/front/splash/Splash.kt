@@ -95,6 +95,7 @@ class Splash: AppCompatActivity() {
     private fun groupClickCallback(selectedGroup: GroupsResponsePayload) {
         showFancyToast(this, "Apuntando al aula: ${selectedGroup.classroomName}")
         UserPersistedData.classroomName = selectedGroup.classroomName ?: ""
+        UserPersistedData.timelineResource = selectedGroup.timelineResource ?: ""
         startActivity(Intent(this, Home::class.java))
     }
 }

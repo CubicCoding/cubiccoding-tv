@@ -21,7 +21,7 @@ object UserPersistedData {
     private const val CREATED_DATE_KEY = "created.date.key"
     private const val TOKEN_KEY = "token.key"
     private const val LOGGED_KEY = "is.logged.key"
-    private const val FIREBASE_TOKEN_KEY = "firebase.token.key"
+    private const val TIMELINE_RESOURCE = "timeline.resource.key"
     val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 
     var email: String
@@ -38,22 +38,7 @@ object UserPersistedData {
                 )
             }
         }
-
-    var username: String
-        get() {
-            checkDevicePreferenceInit();
-            return userSharedPrefs?.getString(
-                USERNAME_KEY, "") ?: ""
-        }
-        set(value) {
-            savePref {
-                putString(
-                    USERNAME_KEY,
-                    value
-                )
-            }
-        }
-
+    
     var name: String
         get() {
             checkDevicePreferenceInit();return userSharedPrefs?.getString(
@@ -64,66 +49,6 @@ object UserPersistedData {
             savePref {
                 putString(
                     NAME_KEY,
-                    value
-                )
-            }
-        }
-
-    var firstSurname: String
-        get() {
-            checkDevicePreferenceInit();return userSharedPrefs?.getString(
-                FIRST_SURNAME_KEY, ""
-            ) ?: ""
-        }
-        set(value) {
-            savePref {
-                putString(
-                    FIRST_SURNAME_KEY,
-                    value
-                )
-            }
-        }
-
-    var secondSurname: String
-        get() {
-            checkDevicePreferenceInit();return userSharedPrefs?.getString(
-                SECOND_SURNAME_KEY, ""
-            ) ?: ""
-        }
-        set(value) {
-            savePref {
-                putString(
-                    SECOND_SURNAME_KEY,
-                    value
-                )
-            }
-        }
-
-    var avatar: String
-        get() {
-            checkDevicePreferenceInit();return userSharedPrefs?.getString(
-                AVATAR_KEY, ""
-            ) ?: ""
-        }
-        set(value) {
-            savePref {
-                putString(
-                    AVATAR_KEY,
-                    value
-                )
-            }
-        }
-
-    var courseName: String
-        get() {
-            checkDevicePreferenceInit();return userSharedPrefs?.getString(
-                COURSE_NAME, ""
-            ) ?: ""
-        }
-        set(value) {
-            savePref {
-                putString(
-                    COURSE_NAME,
                     value
                 )
             }
@@ -143,22 +68,7 @@ object UserPersistedData {
                 )
             }
         }
-
-    var createdDate: String
-        get() {
-            checkDevicePreferenceInit();return userSharedPrefs?.getString(
-                CREATED_DATE_KEY, ""
-            ) ?: ""
-        }
-        set(value) {
-            savePref {
-                putString(
-                    CREATED_DATE_KEY,
-                    value
-                )
-            }
-        }
-
+    
     var ccToken: String
         get() {
             checkDevicePreferenceInit();return userSharedPrefs?.getString(
@@ -174,17 +84,13 @@ object UserPersistedData {
             }
         }
 
-    var firebaseToken: String
+    var timelineResource: String
         get() {
-            checkDevicePreferenceInit();return userSharedPrefs?.getString(
-                FIREBASE_TOKEN_KEY, "") ?: ""
+            checkDevicePreferenceInit();return userSharedPrefs?.getString(TIMELINE_RESOURCE, "") ?: ""
         }
         set(value) {
             savePref {
-                putString(
-                    FIREBASE_TOKEN_KEY,
-                    value
-                )
+                putString(TIMELINE_RESOURCE, value)
             }
         }
 
