@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke">
+
+    <ImageView
+        android:id="@+id/splashBackgroundImage"
+        android:focusable="false"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/splash_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/scoreboardCard"
+        android:focusable="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:nextFocusRight="@+id/progressCard"
+        android:nextFocusDown="@+id/slideShowCard"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/progressCard">
+
+<!--        Must be the first...-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/focus_frame"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="@dimen/splash_icon_padding"
+            android:src="@drawable/star"
+            android:tint="@color/colorPrimary_light"
+            android:layout_gravity="top|center_horizontal"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/scoreboard"
+            android:textSize="22dp"
+            android:fontFamily="@font/prompt"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/progressCard"
+        android:focusable="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:nextFocusRight="@+id/lightCard"
+        android:nextFocusDown="@+id/slideShowCard"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/scoreboardCard"
+        app:layout_constraintRight_toRightOf="parent">
+
+<!--        Must be the first-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/focus_frame"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="@dimen/splash_icon_padding"
+            android:src="@drawable/progress"
+            android:tint="@color/colorPrimary_light"
+            android:layout_gravity="top|center_horizontal"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/progress"
+            android:textSize="22dp"
+            android:fontFamily="@font/prompt"/>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/slideShowCard"
+        android:focusable="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:nextFocusRight="@+id/scoreboardCard"
+        android:nextFocusLeft="@+id/lightCard"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@id/progressCard"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <!--        Must be the first-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/focus_frame"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="@dimen/splash_icon_padding"
+            android:src="@drawable/media_player"
+            android:tint="@color/colorPrimary_light"
+            android:layout_gravity="top|center_horizontal"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/slideshow"
+            android:textSize="22dp"
+            android:fontFamily="@font/prompt"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="scoreboardCard, progressCard, slideShowCard"
+        android:id="@+id/cardsGroup"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/groupNameIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="22dp"
+        android:fontFamily="@font/prompt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="15dp"
+    android:layout_margin="7dp"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="5dp"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/avatarRing"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/white_circle"
+            android:backgroundTint="@color/colorPrimary_light"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/avatar"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/white_circle"
+            app:layout_constraintBottom_toBottomOf="@id/avatarRing"
+            app:layout_constraintLeft_toLeftOf="@id/avatarRing"
+            app:layout_constraintRight_toRightOf="@id/avatarRing"
+            app:layout_constraintTop_toTopOf="@id/avatarRing"
+            app:srcCompat="@drawable/ic_user_gray" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/displayName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/prompt"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="Martin Cazares"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatarRing" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/specialist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/prompt"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="Software Developer"
+            android:textAllCaps="true"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/displayName" />
+
+
+        <ImageView
+            android:id="@+id/shield"
+            android:layout_width="164dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/wing_shield_1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@color/white_smoke"
+            android:layout_marginRight="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/prompt"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="1"
+            android:textSize="45dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@id/shield"
+            app:layout_constraintRight_toRightOf="@id/shield"
+            app:layout_constraintTop_toTopOf="@id/shield"
+            app:layout_constraintBottom_toBottomOf="@id/shield"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/classroomValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/prompt"
+            android:gravity="left"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="120/150"
+            android:textSize="45dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:id="@+id/badgeRing"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="@drawable/gold_badge_circle"
+            android:backgroundTint="@color/white_smoke"
+            app:layout_constraintRight_toRightOf="@id/avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar"/>
+
+        <View
+            android:id="@+id/availability"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/gold_badge_circle"
+            android:backgroundTint="@color/green_right_answer"
+            app:layout_constraintLeft_toLeftOf="@id/badgeRing"
+            app:layout_constraintRight_toRightOf="@id/badgeRing"
+            app:layout_constraintTop_toTopOf="@id/badgeRing"
+            app:layout_constraintBottom_toBottomOf="@+id/badgeRing"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
