@@ -26,8 +26,8 @@ class SlideshowActivity: AppCompatActivity(), Pubsub.Listener {
         const val IS_SLIDESHOW = "is.slidehow.key"
         const val SLIDE_TIME_UP = "slide.time.up.key"
         const val DELAY_BETWEEN_SLIDES = 750L
-        const val SLIDE_TIME_SCOREBOARD = 120000L
-        const val SLIDE_TIME_TIMELINE = 30000L
+        const val SLIDE_TIME_SCOREBOARD = 7500L//120000L
+        const val SLIDE_TIME_TIMELINE = 3000L//15000L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +54,8 @@ class SlideshowActivity: AppCompatActivity(), Pubsub.Listener {
         }
     }
 
-    var slideHandler:Handler? = Handler()
-    var slideNavigationRunner: Runnable? = null
+    private var slideHandler:Handler? = Handler()
+    private var slideNavigationRunner: Runnable? = null
     private fun navigateToFragment(fragment: Fragment, tag: String) {
 
         //Always add a delay when launching the next slide to give user's the chance to close this activity...
@@ -69,6 +69,7 @@ class SlideshowActivity: AppCompatActivity(), Pubsub.Listener {
                 Timber.e("Error when navigating to fragment")
             }
         }
+
         slideHandler?.postDelayed(slideNavigationRunner, DELAY_BETWEEN_SLIDES)
     }
 

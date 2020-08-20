@@ -9,6 +9,7 @@ import com.doepiccoding.cubiccodingtv.R
 import com.doepiccoding.cubiccodingtv.front.home.score.ScoreboardFragment
 import com.doepiccoding.cubiccodingtv.front.home.timeline.TimelineFragment
 import com.doepiccoding.cubiccodingtv.front.slideshow.SlideshowActivity
+import com.doepiccoding.cubiccodingtv.front.slideshow.video.VideoFragment
 import com.doepiccoding.cubiccodingtv.front.utils.isActivityAlive
 import com.doepiccoding.cubiccodingtv.front.utils.setFocusFrameListeners
 import com.doepiccoding.cubiccodingtv.model.pubsub.Pubsub
@@ -36,7 +37,7 @@ class Home: AppCompatActivity(), Pubsub.Listener {
 
     private fun setupViews() {
 
-        setFocusFrameListeners(listOf(scoreboardCard, progressCard, slideShowCard))
+        setFocusFrameListeners(listOf(scoreboardCard, progressCard, slideShowCard, videosCard))
 
         scoreboardCard.requestFocus()
 
@@ -53,6 +54,11 @@ class Home: AppCompatActivity(), Pubsub.Listener {
         slideShowCard.setOnClickListener {
             cardsGroup.visibility = View.GONE
             startActivity(Intent(this, SlideshowActivity::class.java))
+        }
+
+        videosCard.setOnClickListener {
+            cardsGroup.visibility = View.GONE
+            navigateToFragment(VideoFragment.newInstance(null), VideoFragment.TAG)
         }
 
         groupNameIndicator.text = getString(R.string.group_value, UserPersistedData.classroomName)

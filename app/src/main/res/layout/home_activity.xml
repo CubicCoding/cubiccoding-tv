@@ -64,8 +64,9 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
-        android:nextFocusRight="@+id/lightCard"
-        android:nextFocusDown="@+id/slideShowCard"
+        android:nextFocusRight="@+id/slideShowCard"
+        android:nextFocusLeft="@id/scoreboardCard"
+        android:nextFocusDown="@+id/videosCard"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
@@ -105,14 +106,15 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="30dp"
-        android:nextFocusRight="@+id/scoreboardCard"
-        android:nextFocusLeft="@+id/lightCard"
+        android:nextFocusRight="@+id/videosCard"
+        android:nextFocusLeft="@+id/progressCard"
+        android:nextFocusUp="@id/scoreboardCard"
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintTop_toBottomOf="@id/progressCard"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toLeftOf="@+id/videosCard">
 
         <!--        Must be the first-->
         <View
@@ -141,6 +143,48 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/videosCard"
+        android:focusable="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        android:nextFocusRight="@+id/scoreboardCard"
+        android:nextFocusLeft="@+id/slideShowCard"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@id/progressCard"
+        app:layout_constraintLeft_toRightOf="@id/slideShowCard"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <!--        Must be the first-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/focus_frame"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:padding="@dimen/splash_icon_padding"
+            android:src="@drawable/ic_video"
+            android:tint="@color/colorPrimary_light"
+            android:layout_gravity="top|center_horizontal"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="@string/videos"
+            android:textSize="22dp"
+            android:fontFamily="@font/prompt"/>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
@@ -149,7 +193,7 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="scoreboardCard, progressCard, slideShowCard"
+        app:constraint_referenced_ids="scoreboardCard, progressCard, slideShowCard, videosCard"
         android:id="@+id/cardsGroup"/>
 
     <androidx.appcompat.widget.AppCompatTextView
